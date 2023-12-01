@@ -70,45 +70,36 @@ public class Parte2 {
                     numToIndexLast.put(numero,riga.lastIndexOf(numero));
             }
 
-
             if ( ! numToIndexFirst.isEmpty()) {
                 String key = Collections.min(numToIndexFirst.entrySet(), Map.Entry.comparingByValue()).getKey();
-                Integer value = numToIndexFirst.get(key);
                 primo = stringNumberToInt(key);
-                primaPosizione = value;
+                primaPosizione = numToIndexFirst.get(key);
             }
             if ( ! numToIndexLast.isEmpty()) {
                 String key = Collections.max(numToIndexLast.entrySet(), Map.Entry.comparingByValue()).getKey();
-                Integer value = numToIndexLast.get(key);
                 secondo = stringNumberToInt(key);
-                secondaPosizione = value;
+                secondaPosizione = numToIndexLast.get(key);
             }
 
             boolean primoModificato = false;
             for (int i = 0; i < riga.length(); i++) {
                 String carattere = String.valueOf(riga.charAt(i));
                 if (isInteger(carattere)) {
-                    if(primo == 0) {
+                    if( (primo == 0) || (i < primaPosizione && ! primoModificato)) {
                         primo = Integer.parseInt(carattere);
                         primoModificato = true;
                     }
-                    if(i < primaPosizione && ! primoModificato) {
-                        primo = Integer.parseInt(carattere);
-                        primoModificato = true;
-                        }
-                    if (i >= secondaPosizione)
-                    secondo = Integer.parseInt(carattere);
+                    if (i >= secondaPosizione) secondo = Integer.parseInt(carattere);
                 }
             }
-        sum += primo*10 + secondo;
+            sum += primo*10 + secondo;
 
-        primo = 0;
-        secondo = 0;
-        primaPosizione = Integer.MAX_VALUE;
-        secondaPosizione = 0;
+            primo = 0;
+            secondo = 0;
+            primaPosizione = Integer.MAX_VALUE;
+            secondaPosizione = 0;
         }
         System.out.println(sum);
     }
 }
-
 // 53348 soluzione
