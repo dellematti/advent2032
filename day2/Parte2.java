@@ -1,18 +1,11 @@
 import java.io.File;
 import java.util.Scanner;
-import java.util.HashMap; 
-import java.util.Map; 
-import java.util.List; 
-import java.util.ArrayList; 
-import java.util.Arrays; 
-import java.util.Collections; 
 
 public class Parte2 {
 
     public static void main (String[] args) throws Exception {
 
-        File file = new File(
-            "input.txt");
+        File file = new File("input.txt");
         Scanner sc = new Scanner(file);
  
         int idGame = 0;
@@ -21,7 +14,7 @@ public class Parte2 {
         int maxBlue = 0;        
         int output = 0;
         while (sc.hasNextLine()) {
-             String parola = sc.next();
+            String parola = sc.next();
             if (parola.equals("Game")) {
                 parola = sc.next();
                 idGame = Integer.parseInt( parola.substring(0,parola.length()-1) );
@@ -42,8 +35,5 @@ public class Parte2 {
         output += (maxRed * maxGreen * maxBlue);
         System.out.println(output);
     }
-
-
-
 
 }
