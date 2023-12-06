@@ -13,7 +13,6 @@ def numeriInRiga ( riga):
         return [int(s) for s in riga.split() if s.isdigit()]
 
 
-
 file = "/home/delle/Scrivania/Programmi/advent2032/day6/input.txt"
 time = []
 space = []
@@ -23,13 +22,7 @@ with open(file, 'r+') as f:
             time = numeriInRiga(line)
         if idx == 1:
              space = numeriInRiga(line)
-
-# print(time)
-
-
 output = 1
 for i in range (len(time)):
     output *= metodiVittoria(time[i], space[i])
-    # print(metodiVittoria(time[i], space[i]))
-
 print(output)
