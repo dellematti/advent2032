@@ -5,41 +5,35 @@ def numeriInRiga ( riga):
 
 
 file = "/home/delle/Scrivania/Programmi/advent2032/day5/input.txt"
-seedsRange = []
+seeds = []     #come prima cosa salvo i seed
 with open(file, 'r+') as f:
-    for idx, line in enumerate (f):
-        if  line.strip():
-            if line.split()[0] == "seeds:":
-                seedsRange = numeriInRiga(line) 
-                break
-seeds = []
-for idx, seedRange in enumerate(seedsRange):
-    if idx % 2 == 0 :
-        valoreIniziale = seedRange
-    else :
-        seeds.append((valoreIniziale, valoreIniziale+seedRange-1))   # sono compresi sia il primo che il secondo
-# ORA HO I SEED (range dei seed)
-
+    seedsRange = numeriInRiga(f.readline()) 
+    for idx, seedRange in enumerate(seedsRange):
+        if idx % 2 == 0 :
+            valoreIniziale = seedRange
+        else :
+            seeds.append((valoreIniziale, valoreIniziale+seedRange-1))   # sono compresi sia il primo che il secondo
+# print(seeds) 
 
 
 
 rangeFase = []
 rangeTot = []
 with open(file, 'r+') as f:
+    f.readline()
     for idx, line in enumerate (f):
         numeri = numeriInRiga(line) 
         if  line.strip() :   # se la riga non è vuota faccio. altrimenti fase è quella successiva
-            if len(numeri) > 0 and idx > 2:       # è la frase non è senza numeri (titoli delle fasi)
+            if len(numeri) > 0 :       # è la frase non è senza numeri (titoli delle fasi)
                 inputRange = (numeri[1], numeri[1]+numeri[2]-1)
                 outputRange = (numeri[0], numeri[0]+numeri[2]-1)
                 rangeFase.append((inputRange, outputRange))
-        elif idx > 2 :
+        else :
             rangeTot.append(rangeFase)
             rangeFase = []
+rangeTot.append(rangeFase)
 
 # ora in rangeTot ho per ogni fase i vari range
-
-
 
 
 
@@ -52,7 +46,7 @@ for  fase in rangeTot:
             if modifica :
                 inputRange = (rang[0])
                 outputRange = (rang[1])
-                           
+
                 if seed[0] >= inputRange[0] and seed[1] <= inputRange[1]:
                     nuovoSeeds.append((seed[0]+(outputRange[0]-inputRange[0]) ,seed[1]+(outputRange[0]-inputRange[0])  ))
                     modifica = False
