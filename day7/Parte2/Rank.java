@@ -1,0 +1,4 @@
+public enum Rank 
+{ 
+	JOLLY, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, QUEEN, KING, ACE 
+}
