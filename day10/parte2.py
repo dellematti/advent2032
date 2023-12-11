@@ -1,6 +1,9 @@
+# come la parte 1, ma aggiungo una mappa per tenermi il path (coordinateToChar)
+
 class day10:
 
     matrice = []
+    coordinateToChar = {}     # tengo una mappa in cui salvo il path valido, e il simbolo in quella posizione
 
 
     def spostati (coordinate, direzione, passi):   # 0 sopra 1 destra 2 sotto 3 sinistra
@@ -8,12 +11,8 @@ class day10:
         colonna = coordinate[1]
         if riga == -1 or colonna == -1:
             return -1
-        # print("entro nella funzione")
-        # print(coordinate, direzione)
-        # print(day10.matrice[riga][colonna])
 
-        # if day10.matrice[riga][colonna] == "S":
-        #     return passi
+        day10.coordinateToChar[(riga,colonna)] = day10.matrice[riga][colonna]
         
         if direzione == 0 :
             if riga == 0:
@@ -80,24 +79,38 @@ with open(fileName, 'r+') as f:
             coordinateS = (idxRiga,line.rfind("S"))
         riga += 1
 # print("coordinate partenza :", coordinateS, "\n")
-# print(day10.matrice)
-
 
 import sys
-sys.setrecursionlimit(40000)
+sys.setrecursionlimit(40000)  # a caso
 # print(sys.getrecursionlimit())
 
-strade = []
-strade.append(day10.spostati( coordinateS ,0,0))
-strade.append(day10.spostati( coordinateS ,1,0))
-strade.append(day10.spostati( coordinateS ,2,0))
-strade.append(day10.spostati( coordinateS ,3,0))
-
+strada = -1
+direzione = 0
+while (strada == -1):
+    day10.coordinateToChar.clear()
+    strada = (day10.spostati( coordinateS ,direzione,0))
+    direzione += 1
 
 import math
-
-for strada in strade:
-    if strada != -1:
-        print(math.ceil(strada/2))
-        break
+print(math.ceil(strada/2))
 # 6931
+
+
+# --------------------- PARTE 2 ---------------------
+
+
+# fileName = "day10/input.txt"
+output = 0
+with open(fileName, 'r+') as f:
+    for idxRiga, line in enumerate (f):
+        numeroVerticali = 0
+        for idxColonna, ch in enumerate (line) :
+            # ora vedo se è un |  J  L appartentente al path
+            char = day10.coordinateToChar.get((idxRiga,idxColonna))
+            if char == "|" or char == "J" or char == "L":  
+                numeroVerticali += 1
+            if char == None:     # se non era nella mappa allora potrebbe essere chiuso dal loop
+                if (numeroVerticali % 2 != 0 ):
+                    output += 1
+print(output)
+# 357
