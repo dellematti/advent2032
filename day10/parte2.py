@@ -96,6 +96,7 @@ print(math.ceil(strada/2))
 # 6931
 
 
+
 # --------------------- PARTE 2 ---------------------
 
 
@@ -105,12 +106,15 @@ with open(fileName, 'r+') as f:
     for idxRiga, line in enumerate (f):
         numeroVerticali = 0
         for idxColonna, ch in enumerate (line) :
-            # ora vedo se è un |  J  L appartentente al path
+            # ora vedo se è un "|" "J" "L" appartentente al path
+            # in teoria implementandola diversa, dovrebbe funzionare anche con gli opposti ("7", "F") (?)
+            # se passo ad esempio da F-J sono entrato/uscito per forza dal loop
             char = day10.coordinateToChar.get((idxRiga,idxColonna))
-            if char == "|" or char == "J" or char == "L":  
+            if char == "|" or char == "J" or char == "L":
+            # if char == "|" or char == "F" or char == "7":
                 numeroVerticali += 1
             if char == None:     # se non era nella mappa allora potrebbe essere chiuso dal loop
-                if (numeroVerticali % 2 != 0 ):
+                if (numeroVerticali % 2 != 0 ):   # sono dentro se ho trovato un numero pari di verticali
                     output += 1
 print(output)
 # 357
