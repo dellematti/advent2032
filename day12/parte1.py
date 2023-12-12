@@ -81,3 +81,4 @@ with open(file, 'r+') as f:
 # day12.sost(riga, True)
 # day12.sost(riga, False)
 print(day12.output)
+# 7753
